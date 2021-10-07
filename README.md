@@ -1,3 +1,4 @@
+
 # Introduction - MLFlow SDK Starter Kit
 
 *A startkit to get up and running with MLFlow inside a Development Container using Visual Studio Code.*
@@ -12,6 +13,26 @@ MLflow Model Registry: A centralized model store, set of APIs, and UI, to collab
 Github: https://github.com/mlflow/mlflow
 
 Here, we focus on designing  [*Machine Learning Operations*](https://azure.microsoft.com/en-us/services/machine-learning/mlops/#features) with the goal to create a reproducible work environment for Data Science teams.
+
+### Context
+Why a starterkit?
+
+-   Convention over configuration: Decrease the number of decisions a datascientist/engineer has to make and eliminate the complexity of having to configure all and each of the areas of model development.
+-   Tightly coupled example code: Most MLOps frameworks and tooling disclose examples that are entangled into the framework itself. This repository is focused on delivering a decoupled solution where core functionality will be abstracted from the framework code.
+-   Undocumented Design decisions: Even though some frameworks/platforms provide the ability to connect with your platform of choice, I as well as others have experienced that often certain design decision are left undocumented, that make it difficult to review how various subsystems work together (Misconfiguration can have serious repercussions).
+
+### [](https://github.com/daved-net/Starterkit.MLFlow/blob/main/README.md#design-decisions)Design decisions
+
+Within this repository you will find that the underlying design decisions have been taken into account:
+
+-   Multi stage environment (L-DTSP) supporting CI/CD
+    -   Local Environment = Your workstation, either your laptop, remote VM or anything similar
+    -   Development Environment = For all development work (modifying internal libraries, functions and steps) and any other experimental work with minimal access to sensitive/restricted data
+    -   Test Environment = Any preparatory test work. Testing the automated data pipelines, software performance (test cpu/gpu allocation). This stage should have a set of data that is a representation of the actual data (so all sensitive information should be masked or mocked)
+    -   Staging = Gatekeeper before moving to production. This stage should have a subset of the data in your online systems (including sensitive information).
+    -   Production = The live environment where your model (API) will be consumed by other systems. This environment is integrated into the feedback loop.
+-   Model API is seperated from business logic (Following the Single Responsibility principle)
+-   OOP-principles
 
 ## Resources
 
