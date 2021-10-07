@@ -1,0 +1,6 @@
+name: "multistep_example"
+conda: "conda.yaml"
+
+entry_points:
+  load_raw_data:
+    command: "python /workspace/starterkit_mlflow/steps/load_raw_data.py"

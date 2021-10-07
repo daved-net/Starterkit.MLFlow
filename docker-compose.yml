@@ -1,0 +1,36 @@
+version: '3'
+services:  
+
+  mlflow:
+    build: ./starterkit_mlflow/
+    environment: 
+        DATABASE_URL: postgres://starterkit:admin@172.17.0.1/starterkit
+        APP_SETTINGS: ${API_APP_SETTINGS:-setting.DevelopmentSetting}
+
+  postgres_db:
+    image: postgres:9.6.23-alpine3.14
+    volumes:
+      - mlflow_db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust #use for developmentonly
+      POSTGRES_USER: ${POSTGRES_USER:-starterkit}
+      POSTGRES_DB: ${POSTGRES_DB:-starterkit}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+    ports:
+      - 5442:5432
+
+  pg_admin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    ports:
+      - 5999:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    depends_on:
+      - postgres_db
+
+volumes:
+  mlflow_db_volume:
+    driver: local
+    

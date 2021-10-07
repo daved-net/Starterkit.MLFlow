@@ -1,0 +1,7 @@
+pandas
+ipython
+mlflow==1.17.0
+sklearn
+python-dotenv
+werkzeug
+pyspark

@@ -8,7 +8,7 @@
             "name": "Main.py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.py",
+            "program": "${workspaceFolder}/starterkit_mlflow/main.py",
             "console": "integratedTerminal"
         },
         {
